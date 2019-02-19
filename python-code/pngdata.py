@@ -5,6 +5,7 @@ Description: A port of the PNGDATA.pm module
 '''
 
 import binascii
+import struct
 from modules.crc32 import CRC32
 
 class PNG:
@@ -50,9 +51,7 @@ class PNG:
 
 		print('PNG Header: %s - %s' % (header, status))
 
-	##########################
-	##		BROKEN			##
-	##########################
+
 	'''
 	Function to print a png chunk
 
@@ -64,31 +63,66 @@ class PNG:
 		length 		= chunk[0]		# stored as int
 		chunkType 	= chunk[1]
 		chunkData 	= chunk[2]
-		crc 		= int.from_bytes(chunk[3], byteorder='little')		# stored as int
+		crc 		= int.from_bytes(chunk[3],'big')		# stored as int
 
 		crc32 = CRC32()
-		crc32.add(chunkData)
+		crc32.add(chunkType+chunkData)
 		computedCrc = crc32.result()
-
-		print(crc)
-		print(computedCrc)
 
 		status = 'OK'
 		if computedCrc != crc:
 			status = 'Error'
 
-		print('%s %d bytes CRC: 0x%08x (computed 0x%08x) - %s)' (chunkType, length, crc, status))
+		print('%s %d bytes CRC: %#010x (computed %#010x) - %s)' % (chunkType, length, crc, computedCrc, status))
+
+	'''
+	INPUT: 	Name (bytes string)
+			Value (bytes string)
+	OUTPUT: chunk
+	'''
+	def makeTextChunk(name, value):
+		chunkType = b'tEXt'
+
+		data = name + b'\x00' + value
+		length = len(data)
+		data = chunkType + data 	# Prepend the chunk type
+
+		crc32 = CRC32()
+		crc32.add(data)
+		crc = crc32.result()
+
+		crc = struct.pack('>l',crc)		# Pack crc into 4 big-endian bytes
+		length = struct.pack('>l',length)  # Pack length into 4 big-endian bytes
+		chunk = length + data + crc
+		return(chunk)
+
+	def makeIendChunk():
+		length = struct.pack('>l',0)
+		crc = b'\xAE\x42\x60\x82'
+		chunk = length + b'IEND' + crc
+		return chunk
 
 def main():
 	with open('anon.png', 'rb') as file:
 		data=file.read()
 
+		# test getHeader(), printHeader()
 		header = PNG.getHeader(data)
 		PNG.printHeader(header)
 
+		# test read(), printChunk()
 		chunks = PNG.read(data)
-		print(chunks[1])
 		PNG.printChunk(chunks[1])
+
+		# Test makeTextChunk()
+		textChunk = PNG.makeTextChunk(b'name',b'value')
+		textChunk = PNG.read(header+textChunk) # add header, read into chunk
+		PNG.printChunk(textChunk[1])
+
+		# test makeIendChunk()
+		iendChunk = PNG.makeIendChunk()
+		iendChunk = PNG.read(header+iendChunk) # add header, read into chunk
+		PNG.printChunk(iendChunk[1])
 
 
 if __name__ == '__main__':
