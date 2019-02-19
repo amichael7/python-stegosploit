@@ -6,7 +6,12 @@ Description: A port of the PNGDATA.pm module
 
 import binascii
 import struct
-from modules.crc32 import CRC32
+
+# conditional module export
+if __name__ == '__main__':
+	from crc32 import CRC32
+else:
+	from .crc32 import CRC32
 
 class PNG:
 	'''
@@ -37,6 +42,18 @@ class PNG:
 
 		return pngChunks
 
+	'''
+	function to print the PNG data from chunk array
+	
+	INPUT: png_chunks: array of PNG chunks
+	OUTPUT: nothing
+	'''
+	def printPngData(chunks):
+		PNG.printHeader(chunks[0])
+		chunks = chunks[1:]	# truncate chunks
+		for c in chunks:
+			PNG.printChunk(c)
+   
 	'''
 	Get the PNG header
 	'''
@@ -103,7 +120,7 @@ class PNG:
 		return chunk
 
 def main():
-	with open('anon.png', 'rb') as file:
+	with open('../anon.png', 'rb') as file:
 		data=file.read()
 
 		# test getHeader(), printHeader()
@@ -113,6 +130,7 @@ def main():
 		# test read(), printChunk()
 		chunks = PNG.read(data)
 		PNG.printChunk(chunks[1])
+		PNG.printPngData(chunks)
 
 		# Test makeTextChunk()
 		textChunk = PNG.makeTextChunk(b'name',b'value')
@@ -123,7 +141,6 @@ def main():
 		iendChunk = PNG.makeIendChunk()
 		iendChunk = PNG.read(header+iendChunk) # add header, read into chunk
 		PNG.printChunk(iendChunk[1])
-
 
 if __name__ == '__main__':
 	main()

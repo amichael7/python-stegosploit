@@ -8,7 +8,7 @@
 - [ ] Refactor `html_in_jpg_ff.pl`
 - [ ] Refactor `html_in_jpg_ie.pl`
 - [ ] Refactor `html_in_png.pl`
-- [ ] Refactor `pngenum.pl`
+- [X] Refactor `pngenum.pl`
 
 ## References
 
