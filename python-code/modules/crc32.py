@@ -54,7 +54,8 @@ def main():
 
 	crc32.add('hello world')
 	crc = crc32.result()
-	print('crc32 = {:#010x}'.format(crc))
+	print(crc)
+	# print('crc32 = {:#010x}'.format(crc))
 
 if __name__ == '__main__':
 	main()
