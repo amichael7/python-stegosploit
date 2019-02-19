@@ -1,5 +1,13 @@
 # python-stegosploit
 
+## How Stegosploit Works
+
+The exploit code is inserted within the pixels of the image so that the image contains the exploit code.  IMAJS then creates a polyglot image that will be read as an image and contains a decoder that will extract and run the javascript exploit.
+
+The exploit that we will use is an Internet Explorer Use-after-free exploit ([CVE-2014-0282](https://nvd.nist.gov/vuln/detail/CVE-2014-0282)).
+
+
+We can serve up the tools
 
 ## Checklist
 

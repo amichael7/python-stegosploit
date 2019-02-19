@@ -87,6 +87,7 @@ by Saumil Shah @therealsaumil
       exploits.addEventListener("change", selectExploit);
 
       img.onload = imageLoaded;
+
       canvasSource.height = canvasTarget.height = canvasDelta.height = img.height;
       canvasSource.width = canvasTarget.width = canvasDelta.width = img.width;
    }
@@ -108,6 +109,7 @@ by Saumil Shah @therealsaumil
       else {
          clog("Unknown image type");
       }
+      // img.crossOrigin = "Anonymous"
       img.src = imageFile + "?" + Math.random().toString();
    }
 
@@ -262,11 +264,12 @@ by Saumil Shah @therealsaumil
       if(bitPosition > 7) {
          bitPosition = 7;
       }
-
+      
       canvasSource.width = img.width;
       canvasSource.height = img.height;
+
       contextSource = canvasSource.getContext('2d');
-      
+
       // draw the image onto the canvas
       contextSource.drawImage(img, 0, 0);
 
