@@ -25,9 +25,9 @@ by Saumil Shah @therealsaumil
 -->
 <html>
 <head>
-<script src="md5.js"></script>
-<script src="base64.js"></script>
-<script src="histogram.js"></script>
+<script src="{{ url_for('static', filename='js/md5.js') }}"></script>
+<script src="{{ url_for('static', filename='js/base64.js) }}"></script>
+<script src="{{ url_for('static', filename='js/histogram.js) }}"></script>
 <script src="../exploits/exploits.js"></script>
 <script>
    var logData = new Array;
@@ -521,7 +521,7 @@ by Saumil Shah @therealsaumil
    </div>
    <br />
    <div>
-      <img id="original" src="stegosploit_logo_small.jpg">
+      <img id="original" src="{{ url_for('static', filename='img/stegosploit_logo_small.jpg') }}">
       <br />
       Resolution: <input type="text" size="10" readonly=true id="resolution" value="">
       Bit Layer (0-7): <input type="text" value="3" id="position" size=1>

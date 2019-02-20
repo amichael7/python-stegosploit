@@ -25,7 +25,7 @@ by Saumil Shah @therealsaumil
 -->
 <html>
 <head>
-<script src="histogram.js"></script>
+<script src="{{ url_for('static', filename='js/histogram.js') }}"></script>
 <script>
    var logData = new Array;
    var imageHeight = 0;
@@ -166,7 +166,9 @@ by Saumil Shah @therealsaumil
       else {
          clog("Unknown image type");
       }
-      img.src = imageFile + "?" + Math.random().toString();
+
+      imageSrc = `{{ url_for('static',filename='img/anon.jpg')}}`
+      img.src = imageSrc // + "?" + Math.random().toString();
    }
 
    function imageLoaded() {
@@ -278,7 +280,7 @@ by Saumil Shah @therealsaumil
    <div>
       <table border=0>
          <tr>
-            <td><img id="original" src="stegosploit_logo_small.jpg"></td>
+            <td><img id="original" src="{{ url_for('static', filename='img/stegosploit_logo_small.jpg') }}"></td>
             <td>
                <canvas id="histogram1"></canvas>
             </td>
