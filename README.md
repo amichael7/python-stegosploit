@@ -18,6 +18,11 @@ We can serve up the tools
 - [ ] Refactor `html_in_png.pl`
 - [X] Refactor `pngenum.pl`
 
+- [ ] Demo Server
+	- [X] Move all static exploit files in demo pages to `/static`
+	- [ ] Make sure all static files are passed parsed using `template_render`
+	- [ ] Add an image picker for the image_layer_analysis.html \(Optional\)
+
 ## References
 
 * https://conference.hitb.org/hitbsecconf2015ams/sessions/stegosploit-hacking-with-pictures/

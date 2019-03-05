@@ -10,7 +10,8 @@ TODO:
 '''
 
 from flask import Flask
-from flask import Response
+from flask import request
+from flask import make_response
 from flask import render_template
 
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def analysis():
 #			Access-Control-Allow-Origin "*"
 @app.route('/encoding')
 def encoding():
-	resp = Response("Encoding")
+	resp = make_response(render_template('iterative_encoding.html'))
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp
 
@@ -42,7 +43,7 @@ def index():
 			<h1>Stegosploit Demo Server</h1>
 			<ul>
 				<li><a href='/'>Home</a></li>
-				<li><a href='/analysis'>Image Layer Analysis</a></li>
+				<li><a href='/analysis'>Image Layer Analysis (Working)</a></li>
 				<li><a href='/encoding'>Iterative Encoding</a></li>
 			</ul>
 		</body>

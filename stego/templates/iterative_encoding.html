@@ -26,9 +26,9 @@ by Saumil Shah @therealsaumil
 <html>
 <head>
 <script src="{{ url_for('static', filename='js/md5.js') }}"></script>
-<script src="{{ url_for('static', filename='js/base64.js) }}"></script>
-<script src="{{ url_for('static', filename='js/histogram.js) }}"></script>
-<script src="../exploits/exploits.js"></script>
+<script src="{{ url_for('static', filename='js/base64.js') }}"></script>
+<script src="{{ url_for('static', filename='js/histogram.js') }}"></script>
+<script src="{{ url_for('static', filename='exploit/exploits.js') }}"></script>
 <script>
    var logData = new Array;
    var img;
@@ -110,7 +110,9 @@ by Saumil Shah @therealsaumil
          clog("Unknown image type");
       }
       // img.crossOrigin = "Anonymous"
-      img.src = imageFile + "?" + Math.random().toString();
+      imageSrc = `{{ url_for('static',filename='img/anon.jpg')}}`
+      fileType = 'JPG'
+      img.src = imageSrc //imageFile + "?" + Math.random().toString();
    }
 
    function imageLoaded() {
@@ -516,7 +518,7 @@ by Saumil Shah @therealsaumil
    <div id="output"></div>
    <br />
    <div>
-      Input file: <input type="text" id="imageFile" size=60>
+      Input file (.png or .jpg): <input type="file" id="imageFile" accept="image/png, image/jpeg">
       <input type="button" value="load" onclick="loadImage()">
    </div>
    <br />
