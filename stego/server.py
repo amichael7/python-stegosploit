@@ -13,6 +13,7 @@ from flask import Flask
 from flask import request
 from flask import make_response
 from flask import render_template
+from flask import send_from_directory
 
 app = Flask(__name__)
 
@@ -34,6 +35,14 @@ def encoding():
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp
 
+@app.route('/stego.jpg')
+def stego():
+	return app.send_static_file('img/stego.jpg')
+
+@app.route('/exploit.jpg')
+def exploit():
+	return app.send_static_file('img/exploit.jpg')
+
 @app.route('/')
 def index():
 	return """
@@ -45,6 +54,7 @@ def index():
 				<li><a href='/'>Home</a></li>
 				<li><a href='/analysis'>Image Layer Analysis (Working)</a></li>
 				<li><a href='/encoding'>Iterative Encoding</a></li>
+				<li><a href='/exploit.jpg'>Exploit!</a></li>
 			</ul>
 		</body>
 		</html>

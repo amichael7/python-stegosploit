@@ -6,16 +6,18 @@ The exploit code is inserted within the pixels of the image so that the image co
 
 The exploit that we will use is an Internet Explorer Use-after-free exploit ([CVE-2014-0282](https://nvd.nist.gov/vuln/detail/CVE-2014-0282)).
 
+## What we have done so far
 
-We can serve up the tools
+__Highlights:__
+
+* The server can serve images to the VM over `10.0.2.2:5000`
+* The jpg.py program can build a polyglot file (valid `.html` and `.jpg`)
 
 ## Checklist
 
 - [X] Refactor `CRC32.pm`
 - [X] Refactor `PNGDATA.pm`
-- [ ] Refactor `html_in_jpg_ff.pl`
 - [ ] Refactor `html_in_jpg_ie.pl`
-- [ ] Refactor `html_in_png.pl`
 - [X] Refactor `pngenum.pl`
 
 - [ ] Demo Server
