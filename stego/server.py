@@ -37,11 +37,20 @@ def encoding():
 
 @app.route('/stego.jpg')
 def stego():
-	return app.send_static_file('img/stego.jpg')
+	return app.send_static_file('img/out3.jpg')
+
+@app.route('/poc')
+def poc():
+	return app.send_static_file('poc.txt')
 
 @app.route('/exploit.jpg')
 def exploit():
 	return app.send_static_file('img/exploit.jpg')
+
+@app.route('/out3')
+def out3():
+	return app.send_static_file('out3.html')
+
 
 @app.route('/')
 def index():
